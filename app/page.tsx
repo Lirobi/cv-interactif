@@ -9,7 +9,7 @@ export default function Home() {
       <Header />
       <main className="w-full flex-grow pt-10">
         <div className="flex flex-col items-center gap-10 py-10 w-full">
-          <DeveloppableSection title="A propos de moi" content="Je suis un étudiant au BUT Informatique parcours <i>Réalisation d'applications: conception, développement, validation </i> à <u><i>l'IUT Robert Schuman d'Illkirch-Graffenstaden</i></u>. Je suis passionné par la création de sites web et le développement logiciel. Je suis actuellement à la recherche d'un stage pour mon cursus ainsi qu'une potentielle alternance l'années scolaire prochaine. Permis B" />
+          <DeveloppableSection title="A propos de moi" content="Je suis un étudiant au BUT Informatique parcours <i>Réalisation d'applications: conception, développement, validation </i> à <u><i>l'IUT Robert Schuman d'Illkirch-Graffenstaden</i></u>. Je suis passionné par la création de sites web et le développement logiciel. Je suis actuellement à la recherche d'un stage pour mon cursus ainsi qu'une potentielle alternance l'année scolaire prochaine. Permis B" />
           <DeveloppableSection title="Formation" content={`
         <div class="flex flex-col gap-4">
             <h2 class="text-2xl font-bold">BUT Informatique - Parcours Réalisation d'applications : conception, développement, validation</h2>

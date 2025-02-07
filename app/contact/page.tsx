@@ -16,7 +16,7 @@ export default function ContactPage() {
                                 target="_blank"
                                 className="underline-animation text-foreground"
                             >
-                                LinkedIn Profile
+                                Profil LinkedIn
                             </Link>
                         </p>
                         <p className="text-xl">

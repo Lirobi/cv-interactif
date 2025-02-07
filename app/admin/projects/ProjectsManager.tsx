@@ -57,41 +57,54 @@ export default function ProjectsManager({ initialProjects }: ProjectsManagerProp
         if (!editingProject) return;
 
         try {
-            const res = await fetch(`${baseUrl}/api/projects/${editingProject.id}`, {
+            const response = await fetch(`${baseUrl}/api/projects/${editingProject.id}`, {
                 method: "PUT",
-                headers: { "Content-Type": "application/json" },
+                headers: {
+                    "Content-Type": "application/json"
+                },
                 body: JSON.stringify(formData),
+                cache: 'no-store',
+                next: { revalidate: 0 },
+                signal: AbortSignal.timeout(5000),
             });
-            if (res.ok) {
-                const updated = await res.json();
-                setProjects(projects.map((p) => (p.id === editingProject.id ? updated : p)));
-                closeModal();
-            } else {
-                alert("Error saving project");
+
+            if (!response.ok) {
+                throw new Error('Failed to save project');
             }
+
+            const updated = await response.json();
+            setProjects(projects.map((p) => (p.id === editingProject.id ? updated : p)));
+            closeModal();
         } catch (error) {
-            alert("Error saving project: " + error);
+            console.error("Error saving project:", error);
+            alert("Error saving project");
         }
     };
 
     // Create a new empty project
     const handleCreateProject = async () => {
         try {
-            const res = await fetch(`${baseUrl}/api/projects`, {
+            const response = await fetch(`${baseUrl}/api/projects`, {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({}), // rely on defaults
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({}),
+                cache: 'no-store',
+                next: { revalidate: 0 },
+                signal: AbortSignal.timeout(5000),
             });
-            if (res.ok) {
-                const newProject = await res.json();
-                setProjects([...projects, newProject]);
-                // Open modal for the new project so that it can be edited immediately.
-                openModal(newProject);
-            } else {
-                alert("Error creating project");
+
+            if (!response.ok) {
+                throw new Error('Failed to create project');
             }
+
+            const newProject = await response.json();
+            setProjects([...projects, newProject]);
+            openModal(newProject);
         } catch (error) {
-            alert("Error creating project: " + error);
+            console.error("Error creating project:", error);
+            alert("Error creating project");
         }
     };
 

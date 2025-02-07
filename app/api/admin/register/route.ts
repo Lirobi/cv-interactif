@@ -43,7 +43,7 @@ export async function POST(request: Request) {
         });
 
         // Create a response and set a secure cookie for authentication.
-        const response = NextResponse.json({ message: 'Registration successful' });
+        const response = NextResponse.json({ message: 'Registration successful' }, { status: 200 });
         response.cookies.set('adminAuth', 'my-secure-admin-token', {
             path: '/',
             httpOnly: true,

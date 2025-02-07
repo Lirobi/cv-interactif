@@ -27,14 +27,14 @@ export default function RegisterForm() {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(formData),
+                body: JSON.stringify({ username, password }),
                 cache: 'no-store',
                 next: { revalidate: 0 },
                 signal: AbortSignal.timeout(5000),
             });
 
-            const data = await response.json();
             if (!response.ok) {
+                const data = await response.json();
                 setError(data.error || "Registration failed.");
                 return;
             }

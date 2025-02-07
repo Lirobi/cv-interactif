@@ -21,7 +21,7 @@ export default async function AdminPage() {
             <main className="flex flex-col items-center justify-center">
                 <div className="flex flex-col items-center justify-center bg-background rounded-xl p-10 w-fit shadow-lg z-50">
                     <h1 className="text-2xl font-bold">Admin Dashboard</h1>
-                    <Link href="/admin/addProject" className="underline-animation">Add a project</Link>
+                    <Link href="/admin/projects" className="underline-animation">Projects manager</Link>
                 </div>
             </main>
             <Footer />

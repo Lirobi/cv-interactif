@@ -5,6 +5,7 @@ interface DeveloppableSectionProps {
     title: string;
     content: string; // Pass your HTML string here
     defaultOpen?: boolean; // Optionally, you can set the section to open by default
+    justify?: string;
 }
 
 /**
@@ -18,6 +19,7 @@ const DeveloppableSection: React.FC<DeveloppableSectionProps> = ({
     title,
     content,
     defaultOpen = false,
+    justify = "justify-start",
 }) => {
     const [isOpen, setIsOpen] = useState(defaultOpen);
     const contentRef = useRef<HTMLDivElement>(null);
@@ -36,7 +38,7 @@ const DeveloppableSection: React.FC<DeveloppableSectionProps> = ({
     return (
         <section className="developpable-section max-md:w-[90vw] w-[66vw] bg-background rounded-2xl p-10 shadow-lg z-50">
             <header
-                className="developpable-section__header w-2/3 font-bold text-3xl cursor-pointer m-2 max-md:text-xl text-nowrap"
+                className="developpable-section__header tracking-wide w-2/3 font-bold text-3xl cursor-pointer m-2 max-md:text-xls text-nowrap"
                 onClick={toggleSection}
             >
                 <h2>{title}
@@ -54,7 +56,7 @@ const DeveloppableSection: React.FC<DeveloppableSectionProps> = ({
 
             <div
                 ref={contentRef}
-                className={`developpable-section__content max-md:text-lg text-xl m-2 overflow-hidden transition-[max-height] ease-in-out ${isOpen ? 'duration-1000 max-h-fit' : 'max-h-0 duration-1000'
+                className={`developpable-section__content max-md:text-d text-xl m-2 overflow-hidden transition-[max-height] ease-in-out ${justify} ${isOpen ? 'duration-1000 max-h-fit' : 'max-h-0 duration-1000'
                     }`}
                 dangerouslySetInnerHTML={{ __html: content }}
             />

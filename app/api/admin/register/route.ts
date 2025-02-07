@@ -59,5 +59,5 @@ export async function POST(request: Request) {
 export async function GET() {
     const prisma = new PrismaClient();
     const userCount = await prisma.user.count();
-    return NextResponse.json({ userCount });
+    return NextResponse.json({ userCount }, { status: 200 });
 }

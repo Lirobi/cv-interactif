@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <div className="min-h-screen w-screen flex flex-col">
       <Header />
-      <main className="absolute top-1/3 w-full">
+      <main className="w-full flex-grow pt-10">
         <div className="flex flex-col items-center gap-10 py-10 w-full">
           <DeveloppableSection title="A propos de moi" content="Je suis un étudiant au BUT Informatique parcours <i>Réalisation d'applications: conception, développement, validation </i> à <u><i>l'IUT Robert Schuman d'Illkirch-Graffenstaden</i></u>. Je suis passionné par la création de sites web et le développement logiciel. Je suis actuellement à la recherche d'un stage pour mon cursus. Permis B" />
           <DeveloppableSection title="Formation" content={`

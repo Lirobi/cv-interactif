@@ -1,8 +1,12 @@
 // @ts-nocheck
 import { NextResponse } from "next/server";
-import prisma from "@/lib/prisma";
+import { prisma } from "@/lib/prisma";
+import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
 
-export async function PUT(request: Request, { params }) {
+export async function PUT(
+    request: Request,
+    { params }: { params: Params }
+) {
     try {
         const projectId = parseInt(params.id, 10);
         if (isNaN(projectId)) {

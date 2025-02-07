@@ -4,9 +4,9 @@ import Footer from "../components/Footer";
 
 export default function ContactPage() {
     return (
-        <div className="min-h-screen w-screen flex flex-col">
+        <div className="min-h-screen w-screen flex flex-col justify-between">
             <Header />
-            <div className="flex h-[50vh] items-center justify-center ">
+            <div className="flex flex-col items-center justify-center">
                 <div className="flex flex-col items-center justify-center bg-background max-md:w-5/6 rounded-xl z-50 h-fit p-10 shadow-lg">
                     <h1 className="text-6xl font-bold mb-8 text-foreground">Contact</h1>
                     <div className="space-y-4">

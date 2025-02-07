@@ -115,6 +115,24 @@ export default function ProjectsManager({ initialProjects }: ProjectsManagerProp
         }
     };
 
+    const fetchProjects = async () => {
+        try {
+            const response = await fetch(`${baseUrl}/api/projects`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                cache: 'no-store',
+                next: { revalidate: 0 },
+                signal: AbortSignal.timeout(5000),
+            });
+            // ... handle response
+        } catch (error) {
+            console.error('Error fetching projects:', error);
+            // ... handle error
+        }
+    };
+
     return (
         <div className="min-h-screen w-full flex flex-col items-center justify-center">
             <div className="w-full max-w-4xl p-8">

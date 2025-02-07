@@ -7,9 +7,9 @@ export default function RegisterForm() {
     const [error, setError] = useState("");
     const router = useRouter();
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        const formData = new FormData(e.currentTarget);
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        const formData = new FormData(event.currentTarget);
         const username = formData.get("username") as string;
         const password = formData.get("password") as string;
         const confirmPassword = formData.get("confirmPassword") as string;
@@ -21,20 +21,30 @@ export default function RegisterForm() {
 
         // Call the registration API endpoint.
         const baseUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
-        const res = await fetch(`${baseUrl}/api/admin/register`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ username, password }),
-        });
+        try {
+            const response = await fetch(`${baseUrl}/api/admin/register`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+                cache: 'no-store',
+                next: { revalidate: 0 },
+                signal: AbortSignal.timeout(5000),
+            });
 
-        const data = await res.json();
-        if (!res.ok) {
-            setError(data.error || "Registration failed.");
-            return;
+            const data = await response.json();
+            if (!response.ok) {
+                setError(data.error || "Registration failed.");
+                return;
+            }
+
+            // Redirect to the admin dashboard upon successful registration.
+            router.push("/admin");
+        } catch (error) {
+            console.error('Registration error:', error);
+            setError("Registration failed. Please try again later.");
         }
-
-        // Redirect to the admin dashboard upon successful registration.
-        router.push("/admin");
     };
 
     return (

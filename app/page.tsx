@@ -1,5 +1,7 @@
+import Link from "next/link";
 import DeveloppableSection from "./components/DeveloppableSection";
 import Header from "./components/Header";
+import Footer from "./components/Footer";
 
 export default function Home() {
   return (
@@ -126,6 +128,7 @@ export default function Home() {
         `} />
         </div>
       </main>
+      <Footer />
     </div>
   );
 }

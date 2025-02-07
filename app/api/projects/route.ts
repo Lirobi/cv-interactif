@@ -3,11 +3,18 @@ import prisma from "@/lib/prisma";
 
 export async function GET() {
     try {
-        const projects = await prisma.project.findMany();
+        const projects = await prisma.project.findMany({
+            where: { visible: true },
+            include: { TagOnProject: { include: { tag: true } } },
+        });
+
         return NextResponse.json(projects);
     } catch (error) {
         console.error("Error fetching projects:", error);
-        return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
+        return NextResponse.json(
+            { error: 'Failed to fetch projects' },
+            { status: 500 }
+        );
     }
 }
 

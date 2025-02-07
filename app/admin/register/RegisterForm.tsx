@@ -20,7 +20,8 @@ export default function RegisterForm() {
         }
 
         // Call the registration API endpoint.
-        const res = await fetch("/api/admin/register", {
+        const baseUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
+        const res = await fetch(`${baseUrl}/api/admin/register`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ username, password }),

@@ -27,6 +27,7 @@ const defaultFormData: Project = {
 };
 
 export default function ProjectsManager({ initialProjects }: ProjectsManagerProps) {
+    const baseUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
     const [projects, setProjects] = useState<Project[]>(initialProjects);
     const [editingProject, setEditingProject] = useState<Project | null>(null);
     const [formData, setFormData] = useState<Project>(defaultFormData);
@@ -56,7 +57,7 @@ export default function ProjectsManager({ initialProjects }: ProjectsManagerProp
         if (!editingProject) return;
 
         try {
-            const res = await fetch(`/api/projects/${editingProject.id}`, {
+            const res = await fetch(`${baseUrl}/api/projects/${editingProject.id}`, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(formData),
@@ -76,7 +77,7 @@ export default function ProjectsManager({ initialProjects }: ProjectsManagerProp
     // Create a new empty project
     const handleCreateProject = async () => {
         try {
-            const res = await fetch("/api/projects", {
+            const res = await fetch(`${baseUrl}/api/projects`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({}), // rely on defaults
@@ -98,7 +99,7 @@ export default function ProjectsManager({ initialProjects }: ProjectsManagerProp
     const updateVisibility = async (project: Project, newVisible: boolean) => {
         try {
             const updatedProject = { ...project, visible: newVisible };
-            const res = await fetch(`/api/projects/${project.id}`, {
+            const res = await fetch(`${baseUrl}/api/projects/${project.id}`, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(updatedProject),

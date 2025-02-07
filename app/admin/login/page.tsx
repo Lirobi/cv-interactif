@@ -29,8 +29,6 @@ export default function AdminLogin() {
         // Simulated authentication logic.
         // In production, the authentication should be handled on the server and use secure HTTP-only cookies.
         if (await authenticate(username as string, password as string)) {
-            // Set a cookie to simulate authentication for demonstration purposes.
-            document.cookie = 'adminAuth=my-secure-admin-token; path=/';
             router.push('/admin');
         } else {
             setError('Invalid username or password.');

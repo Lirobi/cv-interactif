@@ -46,3 +46,12 @@ model TagOnProject {
 
   @@id([tagId, projectId])
 }
+
+
+model MainPageRubrique {
+  id        Int     @id @default(autoincrement())
+  name      String
+  content   String
+  order     Int
+  visible   Boolean @default(false)
+}

@@ -27,13 +27,6 @@ const DeveloppableSection: React.FC<DeveloppableSectionProps> = ({
     // Toggle the section's visibility
     const toggleSection = () => setIsOpen((prev) => !prev);
 
-    // When the section's open state changes, scroll the header into view so that
-    // the top of the component stays at the same place.
-    useEffect(() => {
-        if (isOpen) {
-            contentRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-        }
-    }, [isOpen]);
 
     return (
         <section className="developpable-section max-md:w-[90vw] w-[66vw] bg-background rounded-2xl p-10 shadow-lg z-50">

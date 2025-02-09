@@ -4,17 +4,17 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 
 export default function Home() {
-  return (
-    <div className="min-h-screen w-screen flex flex-col">
-      <Header />
-      <main className="w-full flex-grow pt-10">
-        <div className="flex flex-col items-center gap-10 py-10 w-full">
-          <DeveloppableSection title="A propos de moi" justify="text-justify" content={`
+    return (
+        <div className="min-h-screen w-screen flex flex-col">
+            <Header />
+            <main className="w-full flex-grow pt-10">
+                <div className="flex flex-col items-center gap-10 py-10 w-full">
+                    <DeveloppableSection title="A propos de moi" justify="text-justify" defaultOpen={true} content={`
 
             <p class="tracking-wider">Etudiant en BUT informatique avec comme parcours "<i>Réalisation d'applications: conception, développement, validation</i>" à l'IUT Robert Schuman (<u>Illkirch-Graffenstaden</u>) je suis également un passioné de création de sites web et de développement de logiciel ce que vous pouvez bien-sûr observer dans la rubrique <a href="/projets" class="underline-animation font-bold">projets</a>. Actuellement, je suis à la recherche d'un stage qui me permettrait d'acquérir une certaine expérience dans le domaine professionnel mais aussi de valider ma deuxième année, je suis donc intéressé par une alternance pour l'année scolaire 2025-2026 (je possède par ailleurs le permis B).</p>
           
         `} />
-          <DeveloppableSection title="Formation" content={`
+                    <DeveloppableSection title="Formation" content={`
         <div class="flex flex-col gap-4">
             <h2 class="text-2xl font-bold tracking-wider">BUT Informatique - Parcours Réalisation d'applications : conception, développement, validation</h2>
             
@@ -130,9 +130,9 @@ export default function Home() {
             </div>
         </div>
         `} />
+                </div>
+            </main>
+            <Footer />
         </div>
-      </main>
-      <Footer />
-    </div>
-  );
+    );
 }

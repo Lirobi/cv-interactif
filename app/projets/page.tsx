@@ -39,6 +39,18 @@ export default function ProjectsPage() {
         fetchProjects();
     }, []);
 
+    // Create an array of 4 loading cards
+    const loadingCards = Array(1).fill(null).map((_, index) => (
+        <ProjectCard
+            key={`loading-${index}`}
+            title="Loading..."
+            description=""
+            imageUrl="/default.png"
+            projectUrl="#"
+            technologies={[]}
+        />
+    ));
+
     return (
         <div className="min-h-screen w-screen flex flex-col justify-between">
             <Header />
@@ -48,7 +60,7 @@ export default function ProjectsPage() {
                 </div>
                 <div className="projects-container flex flex-wrap justify-center gap-4 z-50">
                     {loading ? (
-                        <div>Loading...</div>
+                        <>{loadingCards}</>
                     ) : (
                         projects.map((project) => (
                             <ProjectCard

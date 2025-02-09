@@ -61,7 +61,7 @@ export default function ProjectsPage() {
                 <div className="projects-container flex flex-wrap justify-center gap-4 z-50">
                     {loading ? (
                         <div className="flex justify-center items-center h-full p-10">
-                            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-foreground"></div>
+                            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 max-md:border-foreground border-white "></div>
                         </div>
                     ) : (
                         projects.map((project) => (

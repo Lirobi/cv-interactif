@@ -23,7 +23,7 @@ export default function ProjectCard({ title, description, imageUrl, projectUrl, 
                 </div>
                 <div className="pt-6 pl-6">
                     <h3 className="text-xl font-bold mb-2 text-foreground">{title}</h3>
-                    <p className="text-gray-600 mb-4">{description}</p>
+                    <p className="text-gray-600 mb-4" dangerouslySetInnerHTML={{ __html: description }} />
                     <div className="flex flex-wrap gap-2">
                         {technologies.map((tech, index) => (
                             <span

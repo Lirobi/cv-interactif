@@ -52,5 +52,5 @@ model MainPageRubrique {
   name      String
   content   String
   order     Int
-  public   Boolean @default(false)
+  visible   Boolean @default(false)
 }

@@ -3,10 +3,19 @@ import prisma from "@/lib/prisma";
 
 // Helper function to add CORS headers
 function corsHeaders() {
+    const allowedOrigins = process.env.CORS_ALLOWED_ORIGINS?.split(',') || ['http://localhost:3000'];
+    const origin = '*';  // Default to allow all in development
+
+    // In production, you might want to be more restrictive
+    if (process.env.NODE_ENV === 'production') {
+        // You can add production origin validation here
+    }
+
     return {
-        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Origin': origin,
         'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
         'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+        'Access-Control-Allow-Credentials': 'true',
     };
 }
 

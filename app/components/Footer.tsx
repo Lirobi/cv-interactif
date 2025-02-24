@@ -10,7 +10,7 @@ export default function Footer() {
             </p>
             <p>© 2025 Lilian Bischung</p>
             <p className="text-sm text-center">
-                Fait avec ❤️ par Lilian Bischung avec Next.js et Tailwind CSS
+                Fait avec Next.js
             </p>
         </footer>
     );

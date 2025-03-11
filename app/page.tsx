@@ -26,9 +26,9 @@ export default function Home() {
     }, []);
 
     return (
-        <div className="min-h-screen w-screen flex flex-col">
+        <div className="min-h-screen w-full flex flex-col overflow-x-hidden">
             <Header />
-            <main className="w-full flex-grow pt-10">
+            <main className="w-full flex-grow pt-10 px-4 pb-16">
                 <div className="flex flex-col items-center gap-10 py-10 w-full">
                     {isLoading ? (
                         <div className="flex justify-center items-center h-full">

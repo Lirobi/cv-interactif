@@ -43,29 +43,32 @@ export default function ProjectsPage() {
     ));
 
     return (
-        <div className="min-h-screen w-screen flex flex-col justify-between">
+        <div className="min-h-screen w-full flex flex-col justify-between overflow-x-hidden">
             <Header />
-            <main className="flex flex-col items-center justify-center">
-                <div className="flex flex-col items-center justify-center bg-background max-md:w-5/6 rounded-xl z-50 h-fit p-4 shadow-lg">
-                    <h1 className="text-6xl font-bold text-foreground">Projets</h1>
+            <main className="flex flex-col items-center justify-center py-8 pb-16">
+                <div className="flex flex-col items-center justify-center bg-background max-md:w-5/6 rounded-xl z-50 h-fit p-4 shadow-lg mb-8">
+                    <h1 className="text-6xl max-sm:text-4xl font-bold text-foreground">Projets</h1>
                 </div>
-                <div className="projects-container flex flex-wrap justify-center gap-4 z-50">
+                <div className="w-full max-w-7xl px-4">
                     {loading ? (
                         <div className="flex justify-center items-center h-full p-10">
-                            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 max-md:border-foreground border-white "></div>
+                            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 max-md:border-foreground border-white"></div>
                         </div>
                     ) : (
-                        projects.map((project) => (
-                            <ProjectCard
-                                key={project.id}
-                                title={project.name || "Untitled Project"}
-                                description={project.desc || "No description"}
-                                imageUrl={project.coverImg || "/default.png"}
-                                projectUrl={project.githubUrl || "#"}
-                                tags={project.tags || []}
-                                appUrl={project.appUrl || null}
-                            />
-                        ))
+                        <div className="flex flex-wrap justify-center gap-6 z-50">
+                            {projects.map((project) => (
+                                <div key={project.id} className="flex justify-center">
+                                    <ProjectCard
+                                        title={project.name || "Untitled Project"}
+                                        description={project.desc || "No description"}
+                                        imageUrl={project.coverImg || "/default.png"}
+                                        projectUrl={project.githubUrl || "#"}
+                                        tags={project.tags || []}
+                                        appUrl={project.appUrl || null}
+                                    />
+                                </div>
+                            ))}
+                        </div>
                     )}
                 </div>
             </main>

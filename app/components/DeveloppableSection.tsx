@@ -29,14 +29,15 @@ const DeveloppableSection: React.FC<DeveloppableSectionProps> = ({
 
 
     return (
-        <section className="developpable-section max-md:w-[90vw] w-[66vw] bg-background rounded-2xl p-10 shadow-lg z-50">
+        <section className="developpable-section max-md:w-[90vw] w-[66vw] bg-background rounded-2xl p-10 max-sm:p-6 shadow-lg z-50">
             <header
-                className="developpable-section__header tracking-wide w-2/3 font-bold text-3xl cursor-pointer m-2 max-md:text-xls text-nowrap"
+                className="developpable-section__header tracking-wide w-full md:w-2/3 font-bold text-3xl max-sm:text-2xl cursor-pointer m-2 text-wrap"
                 onClick={toggleSection}
             >
-                <h2>{title}
+                <h2 className="flex items-center">
+                    <span className="mr-2">{title}</span>
                     <svg
-                        className={`inline-block ml-2 w-6 h-6 transform transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
+                        className={`flex-shrink-0 w-6 h-6 transform transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
                         viewBox="0 0 24 24"
                         fill="none"
                         stroke="currentColor"
@@ -49,7 +50,7 @@ const DeveloppableSection: React.FC<DeveloppableSectionProps> = ({
 
             <div
                 ref={contentRef}
-                className={`developpable-section__content max-md:text-d text-xl m-2 overflow-hidden transition-[max-height] ease-in-out ${justify} ${isOpen ? 'duration-1000 max-h-fit' : 'max-h-0 duration-1000'
+                className={`developpable-section__content max-md:text-lg max-sm:text-base text-xl m-2 overflow-hidden transition-[max-height] ease-in-out ${justify} ${isOpen ? 'duration-1000 max-h-fit' : 'max-h-0 duration-1000'
                     }`}
                 dangerouslySetInnerHTML={{ __html: content }}
             />

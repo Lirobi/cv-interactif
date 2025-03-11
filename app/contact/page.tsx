@@ -4,13 +4,13 @@ import Footer from "../components/Footer";
 
 export default function ContactPage() {
     return (
-        <div className="min-h-screen w-screen flex flex-col justify-between">
+        <div className="min-h-screen w-full flex flex-col justify-between overflow-x-hidden">
             <Header />
-            <div className="flex flex-col items-center justify-center">
-                <div className="flex flex-col items-center justify-center bg-background max-md:w-5/6 rounded-xl z-50 h-fit p-10 shadow-lg">
-                    <h1 className="text-6xl font-bold mb-8 text-foreground">Contact</h1>
-                    <div className="space-y-4 flex flex-col items-center justify-center">
-                        <div className="grid grid-cols-2 gap-4 h-10 w-24 text-foreground">
+            <div className="flex flex-col items-center justify-center py-8 pb-16">
+                <div className="flex flex-col items-center justify-center bg-background max-md:w-5/6 rounded-xl z-50 h-fit p-10 max-sm:p-6 shadow-lg">
+                    <h1 className="text-6xl max-sm:text-4xl font-bold mb-8 text-foreground">Contact</h1>
+                    <div className="space-y-6 flex flex-col items-center justify-center">
+                        <div className="grid grid-cols-2 gap-6 h-10 w-24 text-foreground">
                             <Link
                                 href="https://www.linkedin.com/in/lilianbischung"
                                 target="_blank"
@@ -29,11 +29,11 @@ export default function ContactPage() {
 
                             </Link>
                         </div>
-                        <p className="text-xl flex items-center justify-center group gap-2">
-                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="transition-all duration-300 group-hover:scale-110 h-10"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <rect x="3" y="5" width="18" height="14" rx="1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></rect> <path d="M20 5.5L12 13L4 5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+                        <p className="text-xl max-sm:text-lg flex items-center justify-center group gap-2">
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="transition-all duration-300 group-hover:scale-110 h-10 max-sm:h-8"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <rect x="3" y="5" width="18" height="14" rx="1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></rect> <path d="M20 5.5L12 13L4 5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
                             <a
                                 href="mailto:lilian.bischung@etu.unistra.fr"
-                                className="underline-animation text-foreground"
+                                className="underline-animation text-foreground max-sm:text-sm break-all"
                             >
                                 lilian.bischung@etu.unistra.fr
                             </a>

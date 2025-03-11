@@ -1,87 +1,56 @@
 // @ts-nocheck
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
+import prisma from "@/lib/prisma";
 import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
-
-interface ProjectData {
-    name: string;
-    desc: string;
-    coverImg: string;
-    githubUrl: string;
-    tags: string;
-}
+import { Project } from "@/lib/types/Project";
 
 export async function PUT(
     request: Request,
-    { params }: { params: Params }
+    { params }: { params: { id: string } }
 ) {
     try {
-        const { id } = params;
-        const projectId = parseInt(id, 10);
-        if (isNaN(projectId)) {
-            return NextResponse.json({ error: "Invalid project ID" }, { status: 400 });
+        const projectId = params.id;
+
+        // Safely parse the request body
+        let projectData;
+        try {
+            projectData = await request.json();
+        } catch (e) {
+            return NextResponse.json({ error: "Invalid JSON payload" }, { status: 400 });
         }
 
-        const body = await request.json();
-        if (!body) {
-            return NextResponse.json({ error: "Request body is required" }, { status: 400 });
+        // Validate that projectData is not null or undefined
+        if (!projectData) {
+            return NextResponse.json({ error: "Missing project data" }, { status: 400 });
         }
 
-        const { tags, ...restData } = body;
-        let updateData = { ...restData };
+        // Convert string ID to number if your database uses numeric IDs
+        const numericId = parseInt(projectId, 10);
 
-        // First update the project with non-tag data
+        // Extract only the fields that exist in the Prisma schema
+        const { name, coverImg, desc, githubUrl, visible, tags, appUrl } = projectData;
+
+        // Create a clean data object with only valid fields
+        const cleanData = {
+            name,
+            coverImg,
+            desc,
+            githubUrl,
+            visible,
+            tags,
+            appUrl
+        };
+
+        // Update the project
         const updatedProject = await prisma.project.update({
-            where: { id: projectId },
-            data: updateData,
+            where: { id: numericId },
+            data: cleanData
         });
 
-        // Handle tags if they are provided
-        if (tags !== undefined) {
-            try {
-                const tagNames = tags.split(',')
-                    .map((tag: string) => tag.trim())
-                    .filter(Boolean);
-
-                // Delete existing tag associations
-                await prisma.tagOnProject.deleteMany({
-                    where: { projectId }
-                });
-
-                // Create new tag associations
-                if (tagNames.length > 0) {
-                    for (const tagName of tagNames) {
-                        // Find or create tag
-                        const tag = await prisma.tag.upsert({
-                            where: { name: tagName },
-                            create: { name: tagName },
-                            update: {}
-                        });
-
-                        // Create association
-                        await prisma.tagOnProject.create({
-                            data: {
-                                projectId,
-                                tagId: tag.id
-                            }
-                        });
-                    }
-                }
-            } catch (error) {
-                console.error("Error updating tags:", error);
-                return NextResponse.json({ error: "Error updating tags" }, { status: 500 });
-            }
-        }
-
-        // Fetch the final project state with tags
-        const finalProject = await prisma.project.findUnique({
-            where: { id: projectId },
-            include: { TagOnProject: { include: { tag: true } } }
-        });
-
-        return NextResponse.json(finalProject);
+        return NextResponse.json(updatedProject);
     } catch (error) {
-        console.error("Error updating project:", error);
+        // Safer error logging that handles null/undefined errors
+        console.error("Error updating project:", error instanceof Error ? error.message : String(error));
         return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
     }
 }

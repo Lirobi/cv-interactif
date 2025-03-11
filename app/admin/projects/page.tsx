@@ -5,6 +5,8 @@ import { redirect } from "next/navigation";
 import prisma from "@/lib/prisma";
 import ProjectsManager from "./ProjectsManager";
 
+
+
 export default async function ProjectsPage() {
     // Retrieve the authentication token from cookies
     const cookieStore = await cookies();
@@ -15,7 +17,6 @@ export default async function ProjectsPage() {
 
     // Fetch all projects from the database
     const projects = await prisma.project.findMany();
-
     return (
         <>
             <Header />

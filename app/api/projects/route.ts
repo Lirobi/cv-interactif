@@ -4,8 +4,7 @@ import prisma from "@/lib/prisma";
 export async function GET() {
     try {
         const projects = await prisma.project.findMany({
-            where: { visible: true },
-            include: { TagOnProject: { include: { tag: true } } },
+            where: { visible: true }
         });
 
         return NextResponse.json(projects);

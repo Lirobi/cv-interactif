@@ -26,25 +26,11 @@ model Project {
   desc      String  @default("")
   githubUrl String  @default("")
   visible   Boolean @default(true)
-  TagOnProject TagOnProject[]
+  appUrl    String? @default("")
+  tags      String[]
 }
 
-model Tag {
-  id        Int     @id @default(autoincrement())
-  name      String
 
-  TagOnProject TagOnProject[]
-}
-
-model TagOnProject {
-  tagId     Int
-  projectId Int
-
-  tag       Tag     @relation(fields: [tagId], references: [id])
-  project   Project @relation(fields: [projectId], references: [id])
-
-  @@id([tagId, projectId])
-}
 
 
 model MainPageRubrique {

@@ -9,11 +9,23 @@ interface Project {
     desc: string;
     githubUrl: string;
     visible: boolean;
-    tags?: string;
+    tags: string[];
+    appUrl: string | null;
+}
+
+interface ProjectWithTagsArray {
+    id: number;
+    name: string;
+    coverImg: string;
+    desc: string;
+    githubUrl: string;
+    visible: boolean;
+    tags?: string[];
+    appUrl: string | null;
 }
 
 interface ProjectsManagerProps {
-    initialProjects: Project[];
+    initialProjects: ProjectWithTagsArray[];
 }
 
 const defaultFormData: Project = {
@@ -23,20 +35,20 @@ const defaultFormData: Project = {
     desc: "",
     githubUrl: "",
     visible: true,
-    tags: "",
+    tags: [],
+    appUrl: "",
 };
 
 export default function ProjectsManager({ initialProjects }: ProjectsManagerProps) {
     const baseUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
-    const [projects, setProjects] = useState<Project[]>(initialProjects);
+    const [projects, setProjects] = useState<ProjectWithTagsArray[]>(initialProjects);
     const [editingProject, setEditingProject] = useState<Project | null>(null);
     const [formData, setFormData] = useState<Project>(defaultFormData);
 
     // Open modal and initialize form with project data
     const openModal = (project: Project & { TagOnProject?: { tag: { id: number; name: string } }[] }) => {
-        const tags = project.TagOnProject ? project.TagOnProject.map(t => t.tag.name).join(", ") : "";
         setEditingProject(project);
-        setFormData({ ...project, tags });
+        setFormData({ ...project });
     };
 
     const closeModal = () => {
@@ -46,10 +58,19 @@ export default function ProjectsManager({ initialProjects }: ProjectsManagerProp
     // Handle input and select changes
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
-        setFormData((prev) => ({
-            ...prev,
-            [name]: name === "visible" ? value === "true" : value,
-        }));
+
+        if (name === "tags") {
+            const tagsArray = value ? value.split(',').map(tag => tag.trim()) : [];
+            setFormData(prev => ({
+                ...prev,
+                tags: tagsArray
+            }));
+        } else {
+            setFormData(prev => ({
+                ...prev,
+                [name]: name === "visible" ? value === "true" : value,
+            }));
+        }
     };
 
     // Save changes via API call and update local state
@@ -89,7 +110,7 @@ export default function ProjectsManager({ initialProjects }: ProjectsManagerProp
                 headers: {
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify({}),
+                body: JSON.stringify({ tags: [] }),
                 cache: 'no-store',
                 next: { revalidate: 0 },
                 signal: AbortSignal.timeout(5000),
@@ -157,23 +178,46 @@ export default function ProjectsManager({ initialProjects }: ProjectsManagerProp
                                 <h2 className="text-xl font-semibold">{project.name || "Untitled Project"}</h2>
                             </div>
                             <div className="mb-2">
-                                <p className="text-gray-600">{project.desc || "No description"}</p>
+                                <p className="text-gray-600" dangerouslySetInnerHTML={{ __html: project.desc || "No description" }} />
                             </div>
                             <div className="mb-2">
                                 <label className="block text-sm font-medium mb-1">Visibility</label>
                                 <select
                                     name="visible"
                                     value={project.visible ? "true" : "false"}
-                                    onChange={(e) => updateVisibility(project, e.target.value === "true")}
+                                    onChange={(e) => {
+                                        // Create a copy with the correct type structure
+                                        const projectWithCorrectTags: Project = {
+                                            ...project,
+                                            tags: project.tags || []
+                                        };
+                                        updateVisibility(projectWithCorrectTags, e.target.value === "true");
+                                    }}
                                     className="w-full px-2 py-1 border rounded"
                                 >
                                     <option value="true">Public</option>
                                     <option value="false">Private</option>
                                 </select>
                             </div>
+                            <div className="mb-2">
+                                <div className="flex flex-wrap gap-1">
+                                    {project.tags && project.tags.map((tag, index) => (
+                                        <span key={index} className="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-xs">
+                                            {tag}
+                                        </span>
+                                    ))}
+                                </div>
+                            </div>
                             <button
                                 className="absolute top-2 right-2 text-blue-500"
-                                onClick={() => openModal(project)}
+                                onClick={() => {
+                                    // Create a copy with the correct type structure
+                                    const projectWithCorrectTags: Project = {
+                                        ...project,
+                                        tags: project.tags || []
+                                    };
+                                    openModal(projectWithCorrectTags);
+                                }}
                             >
                                 Edit
                             </button>
@@ -239,11 +283,21 @@ export default function ProjectsManager({ initialProjects }: ProjectsManagerProp
                                 />
                             </div>
                             <div>
+                                <label className="block text-sm font-medium mb-1">App URL</label>
+                                <input
+                                    type="url"
+                                    name="appUrl"
+                                    value={formData.appUrl || ""}
+                                    onChange={handleInputChange}
+                                    className="w-full px-3 py-2 border rounded-md"
+                                />
+                            </div>
+                            <div>
                                 <label className="block text-sm font-medium mb-1">Tags (comma separated)</label>
                                 <input
                                     type="text"
                                     name="tags"
-                                    value={formData.tags || ""}
+                                    value={formData.tags ? formData.tags.join(', ') : ""}
                                     onChange={handleInputChange}
                                     className="w-full px-3 py-2 border rounded-md"
                                 />

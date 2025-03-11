@@ -6,10 +6,11 @@ interface ProjectCardProps {
     description: string;
     imageUrl: string;
     projectUrl: string;
-    technologies: string[];
+    tags: string[];
+    appUrl: string | null;
 }
 
-export default function ProjectCard({ title, description, imageUrl, projectUrl, technologies }: ProjectCardProps) {
+export default function ProjectCard({ title, description, imageUrl, projectUrl, tags, appUrl }: ProjectCardProps) {
     return (
         <div className="flex flex-col justify-between bg-white rounded-lg shadow-lg overflow-hidden transition-transform duration-300 hover:scale-105 m-4 w-80">
             <div>
@@ -18,22 +19,28 @@ export default function ProjectCard({ title, description, imageUrl, projectUrl, 
                         src={imageUrl}
                         alt={title}
                         fill
-                        className="object-cover"
+                        className={`${appUrl ? "cursor-pointer" : ""} object-cover`}
+                        onClick={() => {
+                            if (appUrl) {
+                                window.open(appUrl, "_blank");
+                            }
+                        }}
+                        title={appUrl ? "Ouvrir le projet" : ""}
                     />
                 </div>
                 <div className="pt-6 pl-6">
                     <h3 className="text-xl font-bold mb-2 text-foreground">{title}</h3>
                     <p className="text-gray-600 mb-4" dangerouslySetInnerHTML={{ __html: description }} />
                     <div className="flex flex-wrap gap-2">
-                        {technologies.map((tech, index) => (
+                        {tags.map((tag, index) => (
                             <span
                                 key={index}
                                 className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm"
                             >
-                                {tech}
+                                {tag}
                             </span>
                         ))}
-                    </div>¨
+                    </div>
 
                 </div>
             </div>

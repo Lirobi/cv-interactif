@@ -5,22 +5,10 @@ import Link from "next/link";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import ProjectCard from "../components/ProjectCard";
-
-interface Project {
-    id: string;
-    name: string;
-    desc: string;
-    coverImg: string;
-    githubUrl: string;
-    TagOnProject: {
-        tag: {
-            name: string;
-        };
-    }[];
-}
+import { Project } from "@/lib/types/Project";
 
 export default function ProjectsPage() {
-    const [projects, setProjects] = useState([]);
+    const [projects, setProjects] = useState<Project[]>([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -47,7 +35,7 @@ export default function ProjectsPage() {
             description=""
             imageUrl="/default.png"
             projectUrl="#"
-            technologies={[]}
+            tags={[]}
         />
     ));
 
@@ -66,12 +54,13 @@ export default function ProjectsPage() {
                     ) : (
                         projects.map((project) => (
                             <ProjectCard
-                                key={(project as Project).id}
-                                title={(project as Project).name || "Untitled Project"}
-                                description={(project as Project).desc || "No description"}
-                                imageUrl={(project as Project).coverImg || "/default.png"}
-                                projectUrl={(project as Project).githubUrl || "#"}
-                                technologies={(project as Project).TagOnProject?.map((t: { tag: { name: string } }) => t.tag.name) || []}
+                                key={project.id}
+                                title={project.name || "Untitled Project"}
+                                description={project.desc || "No description"}
+                                imageUrl={project.coverImg || "/default.png"}
+                                projectUrl={project.githubUrl || "#"}
+                                tags={project.tags || []}
+                                appUrl={project.appUrl || null}
                             />
                         ))
                     )}

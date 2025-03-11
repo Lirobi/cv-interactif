@@ -6,7 +6,7 @@ import { Project } from "@/lib/types/Project";
 
 export async function PUT(
     request: Request,
-    { params }: { params: { id: string } }
+    { params }: Params
 ) {
     try {
         const projectId = params.id;

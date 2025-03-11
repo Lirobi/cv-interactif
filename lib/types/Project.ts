@@ -6,4 +6,5 @@ export interface Project {
     githubUrl: string;
     appUrl: string | null;
     tags: string[];
+    order: number;
 } 

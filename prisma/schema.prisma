@@ -28,6 +28,7 @@ model Project {
   visible   Boolean @default(true)
   appUrl    String? @default("")
   tags      String[]
+  order     Int     @default(0)
 }
 
 

@@ -16,7 +16,9 @@ export default function ProjectsPage() {
             try {
                 const response = await fetch('/api/projects');
                 const data = await response.json();
-                setProjects(data);
+                // Sort projects by order
+                const sortedProjects = [...data].sort((a, b) => a.order - b.order);
+                setProjects(sortedProjects);
             } catch (error) {
                 console.error('Error fetching projects:', error);
             } finally {
@@ -36,6 +38,7 @@ export default function ProjectsPage() {
             imageUrl="/default.png"
             projectUrl="#"
             tags={[]}
+            appUrl={null}
         />
     ));
 

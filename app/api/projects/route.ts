@@ -42,7 +42,7 @@ export async function GET() {
 export async function POST(request: Request) {
     try {
         // Check authentication
-        const cookieStore = cookies();
+        const cookieStore = await cookies();
         const adminAuth = cookieStore.get('adminAuth')?.value;
 
         if (!adminAuth) {

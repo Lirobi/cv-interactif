@@ -45,9 +45,9 @@ export default function ProjectsPage() {
     return (
         <div className="min-h-screen w-full flex flex-col justify-between overflow-x-hidden">
             <Header />
-            <main className="flex flex-col items-center justify-center py-8 pb-16">
-                <div className="flex flex-col items-center justify-center bg-background max-md:w-5/6 rounded-xl z-50 h-fit p-4 shadow-lg mb-8">
-                    <h1 className="text-6xl max-sm:text-4xl font-bold text-foreground">Projets</h1>
+            <main className="flex flex-col items-center justify-center py-8 pb-16 mx-auto w-full">
+                <div className="flex flex-col items-center justify-center bg-background max-md:w-5/6 rounded-2xl z-30 h-fit w-2/3 p-4 shadow-blue-50 shadow-2xl mb-8 hover:scale-105 transition-all duration-300 ease-in-out">
+                    <h1 className="text-6xl max-sm:text-4xl font-bold text-foreground select-none">Projets</h1>
                 </div>
                 <div className="w-full max-w-7xl px-4">
                     {loading ? (

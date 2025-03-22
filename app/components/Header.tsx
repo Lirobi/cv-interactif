@@ -9,8 +9,8 @@ export default function Header() {
             </svg>
             <div className="flex justify-between max-md:flex-col-reverse md:grid md:grid-cols-2 max-md:gap-10 gap-4 m-10 w-full h-full">
                 <div className="flex flex-col items-center justify-center">
-                    <h1 className="text-5xl max-sm:text-4xl tracking-wide text-foreground md:text-background font-bold z-50">Lilian Bischung</h1>
-                    <p className="text-3xl max-sm:text-2xl text-foreground md:text-background font-medium z-50">Etudiant en développement</p>
+                    <h1 className="text-5xl max-sm:text-4xl tracking-wide text-foreground md:text-background font-bold z-50 cursor-default">Lilian Bischung</h1>
+                    <p className="text-3xl max-sm:text-2xl text-foreground md:text-background font-medium z-50 cursor-default">Etudiant en développement</p>
                 </div>
 
                 <div className="flex items-center justify-center max-md:bg-background max-md:rounded-lg max-md:p-4 max-md:shadow-lg z-50 max-md:w-fit max-md:self-center">

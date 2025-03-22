@@ -61,3 +61,8 @@
 2025-03-11 10:27:09.331 CET [55757] HINT:  This error usually means that PostgreSQL's request for a shared memory segment exceeded your kernel's SHMALL parameter.  You might need to reconfigure the kernel with larger SHMALL.
 	The PostgreSQL documentation contains more information about shared memory configuration.
 2025-03-11 10:27:09.331 CET [55757] LOG:  database system is shut down
+2025-03-22 12:52:57.404 CET [28510] FATAL:  could not create shared memory segment: Cannot allocate memory
+2025-03-22 12:52:57.404 CET [28510] DETAIL:  Failed system call was shmget(key=66314248, size=56, 03600).
+2025-03-22 12:52:57.404 CET [28510] HINT:  This error usually means that PostgreSQL's request for a shared memory segment exceeded your kernel's SHMALL parameter.  You might need to reconfigure the kernel with larger SHMALL.
+	The PostgreSQL documentation contains more information about shared memory configuration.
+2025-03-22 12:52:57.404 CET [28510] LOG:  database system is shut down

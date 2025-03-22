@@ -29,7 +29,7 @@ const DeveloppableSection: React.FC<DeveloppableSectionProps> = ({
 
 
     return (
-        <section className="developpable-section max-md:w-[90vw] w-[66vw] bg-background rounded-2xl p-10 max-sm:p-6 shadow-lg z-50">
+        <section className="developpable-section max-md:w-[90vw] w-[66vw] bg-background rounded-2xl p-10 max-sm:p-6 shadow-2xl shadow-blue-50 z-50">
             <header
                 className="developpable-section__header tracking-wide w-full md:w-2/3 font-bold text-3xl max-sm:text-2xl cursor-pointer m-2 text-wrap"
                 onClick={toggleSection}
